@@ -6,11 +6,11 @@ def crawlGradeFromGwgl():
     session = HTMLSession()
     jar = requests.cookies.RequestsCookieJar()
 
-    jar.set('JSESSIONID', '6BA651B6212F486ECA797A5DDC7ED5B9.node1')
-    jar.set('C2RT', '752a8a3bea43ee86559ed1ee5c815f18')
+    jar.set('JSESSIONID', '28191DA0466EDA27D69CB81417772905.node1')
+    jar.set('C2RT', 'a33e03cddc0fb11b90f118ae407641dc')
     jar.set('bocms_visite_user_session', 'C816B689B1A91CC278FD5FCD7CD1CD61')
-    jar.set('SERVERNAME', 'xk5')
-    jar.set('GSESSIONID', '6BA651B6212F486ECA797A5DDC7ED5B9.node1')
+    jar.set('SERVERNAME', 'xk2')
+    jar.set('GSESSIONID', '28191DA0466EDA27D69CB81417772905.node1')
     session.cookies = jar
 
     courseIdToFind = ['12160007.08', '22163171.01', '22163219.01', '22163280.01']
@@ -26,12 +26,12 @@ def crawlGradeFromGwgl():
             courseScore = item.find('td:nth-last-child(3)')[0].text
             textBuffer += courseId + ' ' + courseName + ': ' + courseScore + '\n'
         print(textBuffer)
+        requests.get('http://127.0.0.1:5700/send_private_msg?user_id=806361380&message=' + textBuffer)
     else:
         print('[' + ','.join(courseIdToFind) + '] Not Found')
 
-
-
-while True:
-    print(time.strftime('%Y-%m-%d %X',time.localtime()))
-    crawlGradeFromGwgl()
-    time.sleep(180)
+if __name__ == '__main__':
+    while True:
+        print(time.strftime('%Y-%m-%d %X',time.localtime()))
+        crawlGradeFromGwgl()
+        time.sleep(180)
